@@ -1,5 +1,7 @@
 package com.truongto.mock.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,7 +48,9 @@ public class AuthService {
 						dto.getUsername(), 
 						dto.getPassword()));
 		final Person person = personService.findByUserName(dto.getUsername());
+		// Get list Role of Person
+		List<String> roles = person.getAuthorities().stream().map(role -> role.getAuthority()).toList();
 		String token = jwtService.generateToken(person.getUsername());
-		return new AuthResponseDTO(token);
+		return new AuthResponseDTO(token, person.getUsername(), person.getEmail(), roles);
 	}
 }

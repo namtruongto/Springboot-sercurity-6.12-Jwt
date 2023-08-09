@@ -10,6 +10,11 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.InvalidClaimException;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,7 +30,7 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint{
         response.setCharacterEncoding("UTF-8");
         Map<String, Object> data = new HashMap<>();
         data.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        data.put("message", "Lỗi xác thực!");
+        data.put("message", "Token hết hạn hoặc không hợp lệ");
         data.put("error", authException.getMessage());
         data.put("path", request.getRequestURI());
         data.put("timestamp", System.currentTimeMillis());

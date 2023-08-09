@@ -30,8 +30,7 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public Author updateAuthor(Author author) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateAuthor'");
+        return this.authorRepository.save(author);
     }
 
     @Override
