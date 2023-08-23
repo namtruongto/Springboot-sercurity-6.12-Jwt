@@ -1,4 +1,4 @@
-package com.truongto.mock.services;
+package com.truongto.mock.services.impl;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.truongto.mock.entities.Person;
 import com.truongto.mock.repositories.PersonRepository;
+import com.truongto.mock.services.PersonService;
 import com.truongto.mock.thfw.exceptions.NotFoundException;
 
 @Service

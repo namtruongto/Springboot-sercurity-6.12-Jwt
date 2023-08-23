@@ -21,11 +21,11 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
     public void handle(HttpServletRequest request, HttpServletResponse response,
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
         
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             Map<String, Object> data = new HashMap<>();
-            data.put("status", HttpServletResponse.SC_UNAUTHORIZED);
+            data.put("status", HttpServletResponse.SC_FORBIDDEN);
             data.put("message", "Tài khoản không đủ quền truy cập tài nguyên này!");
             data.put("error", accessDeniedException.getMessage());
             data.put("path", request.getRequestURI());

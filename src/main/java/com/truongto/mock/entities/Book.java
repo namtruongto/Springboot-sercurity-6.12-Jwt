@@ -3,7 +3,10 @@ package com.truongto.mock.entities;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.truongto.mock.dtos.BookDto;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,13 +18,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "book")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,25 +46,35 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @Column(name="price", nullable = true, columnDefinition = "decimal(10, 2) default '0.00'")
+    @Column(name = "price", nullable = true, columnDefinition = "decimal(10, 2) default '0.00'")
     private BigDecimal price;
 
     @Column(name = "status", nullable = true)
     private String status;
 
-    public Book() {
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = true, updatable = false)
+    private Date createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = true)
+    private Date updatedAt;
+
+    @CreatedBy
+    @Column(name = "created_by", nullable = true, updatable = false)
+    private String createdBy;
+
+    @LastModifiedBy
+    @Column(name = "updated_by", nullable = true)
+    private String updatedBy;
+
+
+
+
+    @Override
+    public String toString() {
+        return "Book [id=" + id + ", title=" + title + ", description=" + description + ", publicationDate="
+                + publicationDate + ", author=" + author + ", price=" + price + ", status=" + status + "]";
     }
 
-    public BookDto toDto() {
-        BookDto dto = new BookDto();
-        dto.setId(this.id);
-        dto.setTitle(this.title);
-        dto.setDescription(this.description);
-        dto.setPublicationDate(this.publicationDate);
-        dto.setAuthor(this.author.toDto());
-        dto.setPrice(this.price);
-        dto.setStatus(this.status);
-        return dto;
-    }
-    
 }

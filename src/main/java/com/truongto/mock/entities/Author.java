@@ -2,8 +2,6 @@ package com.truongto.mock.entities;
 
 import java.util.List;
 
-import com.truongto.mock.dtos.AuthorDto;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -48,6 +46,13 @@ public class Author {
     public Author() {
     }
 
+    public void setBooks(List<Book> books) {
+        this.books = books;
+        for (Book book : books) {
+            book.setAuthor(this);
+        }
+    }
+
     public Author(Long id, String name, String biography, String pathImage, String nationality, String dateOfBirth,
             String dateOfDeath) {
         this.id = id;
@@ -57,17 +62,6 @@ public class Author {
         this.nationality = nationality;
         this.dateOfBirth = dateOfBirth;
         this.dateOfDeath = dateOfDeath;
-    }
-
-    public AuthorDto toDto(){
-
-        return new AuthorDto(
-        this.name, 
-        this.biography,
-        this.pathImage,
-        this.nationality,
-        this.dateOfBirth,
-        this.dateOfDeath);
     }
 
 }

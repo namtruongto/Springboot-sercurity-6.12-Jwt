@@ -1,6 +1,4 @@
-package com.truongto.mock.services;
-
-import java.util.List;
+package com.truongto.mock.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,10 +6,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.truongto.mock.config.jwt.JwtService;
 import com.truongto.mock.dtos.AuthResponseDTO;
 import com.truongto.mock.entities.Person;
 import com.truongto.mock.payload.AuthRequestDTO;
 import com.truongto.mock.payload.RegisterRequestDTO;
+import com.truongto.mock.services.PersonService;
 import com.truongto.mock.thfw.enums.Role;
 import com.truongto.mock.thfw.enums.Enums.Gender;
 
@@ -39,7 +39,7 @@ public class AuthService {
 		person.setGender(Gender.MALE);
 		person.addRole(Role.ADMIN);
 		person = personService.create(person);
-		return new AuthResponseDTO(jwtService.generateToken(person.getUsername()));
+		return new AuthResponseDTO(jwtService.generateToken(person.getUsername()), person.getUsername(), person.getEmail(), person.getRolesString());
 	}
 	
 	public AuthResponseDTO authenticate(AuthRequestDTO dto) {
@@ -48,9 +48,9 @@ public class AuthService {
 						dto.getUsername(), 
 						dto.getPassword()));
 		final Person person = personService.findByUserName(dto.getUsername());
-		// Get list Role of Person
-		List<String> roles = person.getAuthorities().stream().map(role -> role.getAuthority()).toList();
 		String token = jwtService.generateToken(person.getUsername());
-		return new AuthResponseDTO(token, person.getUsername(), person.getEmail(), roles);
+		return new AuthResponseDTO(token, person.getUsername(),person.getEmail(), person.getRolesString());
 	}
+
+	// refresh token
 }

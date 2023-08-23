@@ -1,4 +1,4 @@
-package com.truongto.mock.config;
+package com.truongto.mock.config.jwt;
 
 import java.io.IOException;
 
@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
-import com.truongto.mock.services.JwtService;
 
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;

@@ -1,27 +1,21 @@
 package com.truongto.mock.dtos;
 
-import com.truongto.mock.thfw.enums.Enums.Status;
+import org.springframework.http.HttpStatus;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BaseResponse {
-    private Status status;
+    private HttpStatus status;
     private String message;
     private Object data;
 
-    public BaseResponse() {
-    }
-
-    public BaseResponse(Status status, String message) {
+    public BaseResponse(HttpStatus status, String message) {
         this.status = status;
         this.message = message;
     }
-
-    public BaseResponse(Status status, String message, Object data) {
-        this.status = status;
-        this.message = message;
-        this.data = data;
-    }
-
 }

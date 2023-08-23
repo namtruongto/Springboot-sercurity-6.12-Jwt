@@ -1,4 +1,4 @@
-package com.truongto.mock.services;
+package com.truongto.mock.config.jwt;
 
 import java.util.Date;
 import javax.crypto.SecretKey;
@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 
 @Service
@@ -45,15 +48,22 @@ public class JwtService {
 	}
 
 	public boolean validateToken(String token) {
-		String username = getUsername(token);
-		Date expirationDate = getClaims(token).getExpiration();
-		Date atDate = getClaims(token).getIssuedAt();
-		String is = Jwts.builder() //.builder() để tạo ra một đối tượng JwtBuilder.
-			.setSubject(username) //.setSubject() để thiết lập thông tin người dùng cho token.
-			.setIssuedAt(atDate) //.setIssuedAt() để thiết lập thời gian phát hành token.
-			.setExpiration(expirationDate) //.setExpiration() để thiết lập thời gian hết hạn của token.
-			.signWith(getKey(), SignatureAlgorithm.HS512) // .signWith() để thiết lập thuật toán mã hóa và khóa bí mật.
-			.compact();
-		return is.equals(token);
+		try {
+			Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
+			return true;
+		}
+		catch (SecurityException | MalformedJwtException e) {
+			System.out.println("Invalid JWT signature.");
+		}
+		catch (ExpiredJwtException e) {
+			System.out.println("Expired JWT token.");
+		}
+		catch (UnsupportedJwtException e) {
+			System.out.println("Unsupported JWT token.");
+		}
+		catch (IllegalArgumentException e) {
+			System.out.println("JWT claims string is empty.");
+		}
+		return false;
 	}
 }

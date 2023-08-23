@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "person")
 public class Person implements UserDetails {
@@ -93,6 +93,10 @@ public class Person implements UserDetails {
         return roles.stream()
                 .map(r -> new SimpleGrantedAuthority(Role.fromId(r).name()))
                 .collect(Collectors.toSet());
+    }
+
+    public List<String> getRolesString() {
+        return roles.stream().map(r -> Role.fromId(r).name()).collect(Collectors.toList());
     }
 
     @Override
