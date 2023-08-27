@@ -12,6 +12,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 
 @Service
 public class JwtService {
@@ -51,6 +52,9 @@ public class JwtService {
 		try {
 			Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
 			return true;
+		}
+		catch(SignatureException e){
+			System.out.println("Invalid JWT signature.");
 		}
 		catch (SecurityException | MalformedJwtException e) {
 			System.out.println("Invalid JWT signature.");

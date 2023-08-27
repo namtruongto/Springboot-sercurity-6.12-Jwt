@@ -3,6 +3,7 @@ package com.truongto.mock.handlers;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.truongto.mock.dtos.ErrorResponse;
 import com.truongto.mock.dtos.ValidationErrorResponse;
@@ -20,12 +21,14 @@ public class GlobalExceptionsHandlers {
 
         @ExceptionHandler(org.springframework.web.bind.MethodArgumentNotValidException.class)
         @ResponseStatus(HttpStatus.BAD_REQUEST)
-        public ValidationErrorResponse handleValidationException(org.springframework.web.bind.MethodArgumentNotValidException ex) {
+        public ValidationErrorResponse handleValidationException(
+                        org.springframework.web.bind.MethodArgumentNotValidException ex) {
                 BindingResult bindingResult = ex.getBindingResult();
                 String source = bindingResult.getObjectName();
                 Object target = bindingResult.getTarget();
-                if (target != null) source = target.getClass().getName();
-                
+                if (target != null)
+                        source = target.getClass().getName();
+
                 List<String> errors = bindingResult.getFieldErrors()
                                 .stream()
                                 .map(FieldError::getDefaultMessage)
@@ -66,6 +69,29 @@ public class GlobalExceptionsHandlers {
                 String message = "Invalid username or password";
                 ErrorResponse errorResponse = new ErrorResponse(source, message,
                                 HttpStatus.UNAUTHORIZED.value(), new Date());
+                return errorResponse;
+        }
+
+        // MethotNotAllowedException
+        @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
+        @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+        public ErrorResponse handleMethotNotAllowedException(
+                        org.springframework.web.HttpRequestMethodNotSupportedException ex) {
+                String source = ex.getStackTrace()[0].getClassName();
+                String message = "Method not allowed";
+                ErrorResponse errorResponse = new ErrorResponse(source, message,
+                                HttpStatus.METHOD_NOT_ALLOWED.value(), new Date());
+                return errorResponse;
+        }
+        
+        // Request Not Found or Method Not Found Exception
+        @ExceptionHandler(NoHandlerFoundException.class)
+        @ResponseStatus(HttpStatus.NOT_FOUND)
+        public ErrorResponse handleNoHandlerFoundException(NoHandlerFoundException ex) {
+                String source = ex.getStackTrace()[0].getClassName();
+                String message = "Request not found";
+                ErrorResponse errorResponse = new ErrorResponse(source, message,
+                                HttpStatus.NOT_FOUND.value(), new Date());
                 return errorResponse;
         }
 

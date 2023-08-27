@@ -46,7 +46,7 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @Column(name = "price", nullable = true, columnDefinition = "decimal(10, 2) default '0.00'")
+    @Column(name = "price", columnDefinition = "decimal(10, 2)")
     private BigDecimal price;
 
     @Column(name = "status", nullable = true)

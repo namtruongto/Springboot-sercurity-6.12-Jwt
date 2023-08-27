@@ -68,8 +68,8 @@ public class SecurityConfig {
 						.requestMatchers(PUBLIC).permitAll()
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép tất cả các request OPTIONS
 						.requestMatchers(ADMIN).hasAuthority("ADMIN") // If UserDetails.getAuthorities return [ADMIN, ...]
-						.requestMatchers(USER).hasAuthority("USER")
-						.requestMatchers(STAFF).hasAuthority("STAFF")
+						.requestMatchers(USER).hasAuthority("USER") // If UserDetails.getAuthorities return [USER, ...]
+						.requestMatchers(STAFF).hasAuthority("STAFF") // If UserDetails.getAuthorities return [STAFF, ...]
 						.anyRequest().authenticated())
 				.exceptionHandling(exception -> exception
 						.accessDeniedHandler(customAccessDeniedHandler)
