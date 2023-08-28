@@ -20,12 +20,12 @@ public class AuthEntryPointJwt implements AuthenticationEntryPoint{
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setStatus(response.getStatus());
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Map<String, Object> data = new HashMap<>();
-        data.put("status", HttpServletResponse.SC_UNAUTHORIZED);
-        data.put("message", "Lỗi xác thực token");
+        data.put("status", response.getStatus());
+        data.put("message", response.getStatus() == 401 ? "Unauthorized" : authException.getMessage());
         data.put("error", authException.getMessage());
         data.put("path", request.getRequestURI());
         data.put("timestamp", System.currentTimeMillis());

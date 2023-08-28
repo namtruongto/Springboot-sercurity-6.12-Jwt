@@ -2,6 +2,9 @@ package com.truongto.mock.services.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.swing.text.html.Option;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -90,8 +93,23 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book updateBook(Book payload) {
-        return bookRepository.save(payload);
+    public void deleteBook(Long id) {
+        Optional<Book> book = this.bookRepository.findById(id);
+        if (book.isPresent()) {
+            this.bookRepository.delete(book.get());
+        } else {
+            throw new NotFoundException("Không tìm thấy sách với id: " + id);
+        }
+    }
+
+    @Override
+    public Book updateBook(Long id, BookPayload payload) {
+        Book book = this.bookRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Không tìm thấy sách với id: " + id));
+
+        book.setTitle(payload.getTitle());
+        book.setDescription(payload.getDescription());
+        return this.bookRepository.save(book);
     }
 
 }

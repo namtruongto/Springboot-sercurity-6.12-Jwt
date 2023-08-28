@@ -10,6 +10,8 @@ import com.truongto.mock.repositories.AuthorRepository;
 import com.truongto.mock.services.AuthorService;
 import com.truongto.mock.thfw.exceptions.NotFoundException;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
@@ -26,6 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
         }).orElseThrow(() -> new NotFoundException("Không tìm thấy tác giả với id: " + id));
     }
 
+    @Transactional
     @Override
     public Author createAuthor(Author author) {
         Author authorCreated = this.authorRepository.save(author);

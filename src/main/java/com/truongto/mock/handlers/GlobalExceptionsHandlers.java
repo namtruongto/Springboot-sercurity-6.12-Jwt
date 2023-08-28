@@ -78,8 +78,18 @@ public class GlobalExceptionsHandlers {
         public ErrorResponse handleMethotNotAllowedException(
                         org.springframework.web.HttpRequestMethodNotSupportedException ex) {
                 String source = ex.getStackTrace()[0].getClassName();
-                String message = "Method not allowed";
-                ErrorResponse errorResponse = new ErrorResponse(source, message,
+                ErrorResponse errorResponse = new ErrorResponse(source, ex.getMessage(),
+                                HttpStatus.METHOD_NOT_ALLOWED.value(), new Date());
+                return errorResponse;
+        }
+
+        //UnsupportedOperationException
+        @ExceptionHandler(java.lang.UnsupportedOperationException.class)
+        @ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+        public ErrorResponse handleUnsupportedOperationException(
+                        java.lang.UnsupportedOperationException ex) {
+                String source = ex.getStackTrace()[0].getClassName();
+                ErrorResponse errorResponse = new ErrorResponse(source, ex.getMessage(),
                                 HttpStatus.METHOD_NOT_ALLOWED.value(), new Date());
                 return errorResponse;
         }
