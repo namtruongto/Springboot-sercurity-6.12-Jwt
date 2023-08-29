@@ -93,6 +93,17 @@ public class GlobalExceptionsHandlers {
                                 HttpStatus.METHOD_NOT_ALLOWED.value(), new Date());
                 return errorResponse;
         }
+
+        // io.jsonwebtoken.ExpiredJwtException
+        @ExceptionHandler(io.jsonwebtoken.ExpiredJwtException.class)
+        @ResponseStatus(HttpStatus.UNAUTHORIZED)
+        public ErrorResponse handleExpiredJwtException(io.jsonwebtoken.ExpiredJwtException ex) {
+                String source = ex.getStackTrace()[0].getClassName();
+                String message = "Token expired";
+                ErrorResponse errorResponse = new ErrorResponse(source, message,
+                                HttpStatus.UNAUTHORIZED.value(), new Date());
+                return errorResponse;
+        }
         
         // Request Not Found or Method Not Found Exception
         @ExceptionHandler(NoHandlerFoundException.class)

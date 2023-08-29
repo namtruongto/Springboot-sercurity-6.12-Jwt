@@ -13,8 +13,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class JwtService {
     
     @Value("${jwt.secret.key}")
@@ -54,19 +56,25 @@ public class JwtService {
 			return true;
 		}
 		catch(SignatureException e){
-			System.out.println("Invalid JWT signature.");
+			log.error("Invalid JWT signature: {}", e.getMessage());
+			e.printStackTrace();
+			
 		}
 		catch (SecurityException | MalformedJwtException e) {
-			System.out.println("Invalid JWT signature.");
+			log.error("Invalid JWT token: {}", e.getMessage());
+			e.printStackTrace();
 		}
 		catch (ExpiredJwtException e) {
-			System.out.println("Expired JWT token.");
+			log.error("JWT token is expired: {}", e.getMessage());
+			e.printStackTrace();
 		}
 		catch (UnsupportedJwtException e) {
-			System.out.println("Unsupported JWT token.");
+			log.error("JWT token is unsupported: {}", e.getMessage());
+			e.printStackTrace();
 		}
 		catch (IllegalArgumentException e) {
-			System.out.println("JWT claims string is empty.");
+			log.error("JWT claims string is empty: {}", e.getMessage());
+			e.printStackTrace();
 		}
 		return false;
 	}

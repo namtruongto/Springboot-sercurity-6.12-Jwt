@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -29,6 +30,7 @@ import com.truongto.mock.thfw.exceptions.CustomAccessDeniedHandler;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true) // Bật hỗ trợ cho @PreAuthorize và @PostAuthorize
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider")
 public class SecurityConfig {
 
 	private static final String[] PUBLIC = new String[] {
