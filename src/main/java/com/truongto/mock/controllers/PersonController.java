@@ -16,12 +16,14 @@ import com.truongto.mock.entities.Person;
 import com.truongto.mock.payload.PersonRolePayload;
 import com.truongto.mock.services.PersonService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/person")
+@RequiredArgsConstructor
 public class PersonController {
 
-    @Autowired
-    private PersonService personService;
+    private final PersonService personService;
 
     @GetMapping
     ResponseEntity<BaseResponse> findAll() {

@@ -20,12 +20,14 @@ import com.truongto.mock.entities.Book;
 import com.truongto.mock.payload.BookPayload;
 import com.truongto.mock.services.BookService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/book")
+@RequiredArgsConstructor
 public class BookController {
 
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
 
     @GetMapping
     public ResponseEntity<BaseResponse> getBook(Pageable pageable, BookPayload payload) {

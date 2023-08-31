@@ -15,12 +15,14 @@ import com.truongto.mock.dtos.BaseResponse;
 import com.truongto.mock.entities.Author;
 import com.truongto.mock.services.AuthorService;
 
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("/author")
+@RequiredArgsConstructor
 public class AuthorController {
 
-    @Autowired
-    private AuthorService authorService;
+    private final AuthorService authorService;
 
     @GetMapping("/{id}")
     public ResponseEntity<BaseResponse> getAuthor(@PathVariable("id") Long id) {

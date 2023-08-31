@@ -17,15 +17,16 @@ import com.truongto.mock.payload.RegisterRequestDTO;
 
 import io.jsonwebtoken.Claims;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
-	@Autowired
-	private AuthService authService;
 
-	@Autowired
-	private JwtService jwtService;
+	private final AuthService authService;
+
+	private final JwtService jwtService;
 
 	@PostMapping("/register")
 	public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterRequestDTO dto) {
