@@ -5,9 +5,12 @@ Spring Boot REST APIs with Authentication
 A secure Spring Boot API for user registration and authentication built with Java 17.
 
 Technologies :computer:
-Java 17 \n
+Java 17
+
 Spring Security 6
+
 JSON Web Tokens (JWT)
+
 Spring Data JPA / Hibernate
 Bean Validation
 Custom Exceptions
