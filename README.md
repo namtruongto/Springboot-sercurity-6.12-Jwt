@@ -1,5 +1,5 @@
-Spring Boot REST APIs with Authentication
- ↗](https://github.com/namtruongto/Springboot-sercurity-6.12-Jwt))
+Spring Boot REST APIs with Authentication.
+ ↗](https://github.com/namtruongto/Springboot-sercurity-6.12-Jwt)).
 A secure Spring Boot API for user registration and authentication built with Java 17.
 Technologies :computer:
 •	Java 17
