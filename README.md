@@ -1,42 +1,42 @@
-# <img src="logo.png" width="30"> AwesomeProject
+Spring Security & JWT Authentication API
+<p align="center"> <img src="[https://i.imgur.com/twulkcE.png ↗](https://i.imgur.com/twulkcE.png)" width="200"/> </p>
+A secure Spring Boot API for user authentication and authorization built with Java 17.
 
-<p align="center">
-  <a href="#"><img src="https://img.shields.io/badge/Spring%20Boot-v2.7.3-green" alt="Spring Boot"></a>
-  <a href="#"><img src="https://img.shields.io/badge/Java-17-blue" alt="Java"></a>
-  <a href="#"><img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="License"></a>
-</p>
+Technologies
+:technologist: Java 17
+:closed_lock_with_key: Spring Security 6
+:link: JWT Authentication
+:page_facing_up: OpenAPI Specification
+:books: JPA / Hibernate
+:rocket: Maven
+:checkered_flag: MySQL Database
 
-## 🚀 Introduction
-Welcome to the extraordinary world of AwesomeProject!...
-
-## ✨ Project Highlights
-<details>
-<summary><b>Java 17 Magic</b></summary>
-Get ready to harness the full power of Java 17!... 
-</details>
-
-<details>
-<summary><b>SpringBoot Excellence</b></summary> 
-Experience seamless development with the SpringBoot framework...
-</details>
-
-## 🏗 Getting Started
-### :floppy_disk: Clone
-```bash
-git clone https://github.com/your-username/awesome-project.git
-:hammer_and_wrench: Build & Run
-bash
+Features
+Register and authenticate users
+Secure endpoints with JWT tokens
+Role-based authorization
+Input validation with Bean Validation
+Custom exception handling
+Swagger API documentation
+Database migration with Flyway
+Getting Started
+Clone
 Copy
-./mvnw spring-boot:run
-:page_facing_up: Explore APIs
-Browse API docs at http://localhost:8080/swagger-ui.html ↗
+git clone https://github.com/namtruongto/Springboot-sercurity-6.12-Jwt.git
+Configure
+Copy application-example.properties to application.properties
 
-:hammer: Contribute
-Interested in contributing? Check out the contribution guidelines!
-
-📜 License
-Released under the MIT license. See LICENSE for details.
-
+Build and Run
 Copy
+mvn spring-boot:run
+Explore APIs
+API docs at http://localhost:8080/swagger-ui ↗
 
-This adds some styles and icons for visual appeal while keeping content well organized.
+Contact
+:envelope: tonamtruong17062000@gmail.com
+:earth_asia: https://truongto.github.io/ ↗
+
+License
+Released under the MIT License. See LICENSE for details.
+
+Let me know if any part needs more explanation!
