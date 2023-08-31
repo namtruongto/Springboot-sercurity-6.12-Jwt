@@ -11,6 +11,6 @@ public interface BookService {
     Page<Book> pagingBook(Pageable pageable, BookPayload payload);
     Book getBookById(Long id);
     Book createBook(Book payload);
-    Book updateBook(Long id, BookPayload payload);
-    void deleteBook(Long id);
+    Book updateBook(Book payload);
+
 }

@@ -9,6 +9,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +22,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,21 +42,26 @@ public class Book {
     private Long id;
 
     @Column(name = "title", nullable = false)
+    @NotBlank(message = "Title is required")
     private String title;
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "publication_date")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Date publicationDate;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Author.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @Column(name = "price", columnDefinition = "decimal(10, 2)")
+    @Min(value = 0, message = "Price must be greater than 0")
+    @Column(name = "price", nullable = true, columnDefinition = "decimal(10, 0) default '0'")
     private BigDecimal price;
 
+    //Pattern status in 0,1,2
+    @Pattern(regexp = "^[0-2]{1}$", message = "Status incorrect, include 0,1,2")
     @Column(name = "status", nullable = true)
     private String status;
 
@@ -70,14 +80,5 @@ public class Book {
     @LastModifiedBy
     @Column(name = "updated_by", nullable = true)
     private String updatedBy;
-
-
-
-
-    @Override
-    public String toString() {
-        return "Book [id=" + id + ", title=" + title + ", description=" + description + ", publicationDate="
-                + publicationDate + ", author=" + author + ", price=" + price + ", status=" + status + "]";
-    }
 
 }

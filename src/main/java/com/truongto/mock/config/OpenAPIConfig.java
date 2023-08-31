@@ -14,36 +14,36 @@ import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
 public class OpenAPIConfig {
-    @Value("${swagger.openapi.dev-url}")
+    
+    @Value("${swagger.dev-url}")
     private String devUrl;
 
-    @Value("${swagger.openapi.prod-url}")
+    @Value("${swagger.prod-url}")
     private String prodUrl;
 
     @Bean
-    public OpenAPI myOpenAPI() {
+    public OpenAPI customOpenAPI() {
         Server devServer = new Server();
         devServer.setUrl(devUrl);
-        devServer.setDescription("Server URL in Development environment");
+        devServer.setDescription("Server Dev URL API TRUONGTN");
 
         Server prodServer = new Server();
         prodServer.setUrl(prodUrl);
-        prodServer.setDescription("Server URL in Production environment");
+        prodServer.setDescription("Server Prod URL API TRUONGTN");
 
         Contact contact = new Contact();
         contact.setEmail("tonamtruong17062000@gmail.com");
         contact.setName("Tô Nam Trường");
-        contact.setUrl("https://github.com/namtruongto");
+        contact.setUrl("https://truongto.github.io/");
 
-        License mitLicense = new License().name("MIT License").url("https://choosealicense.com/licenses/mit/");
+        License license = new License().name("My license").url("https://truongto.github.io/");
 
         Info info = new Info()
-                .title("TRUONGTN API")
-                .version("1.0")
-                .contact(contact)
-                .description("API truongtn demo")
-                .termsOfService("https://www.bezkoder.com/terms")
-                .license(mitLicense);
+            .title("API TRUONGTN")
+            .version("1.0.0")
+            .contact(contact)
+            .description("API TRUONGTN")
+            .license(license);
 
         return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
     }

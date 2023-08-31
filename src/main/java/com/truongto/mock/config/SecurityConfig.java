@@ -37,7 +37,7 @@ public class SecurityConfig {
 			"/test/**",
 			"/auth/**",
 			"/swagger-ui/**",
-			"/v3/api-docs/**",
+			"/v3/**"
 	};
 
 	private static final String[] ADMIN = new String[] {
@@ -71,14 +71,14 @@ public class SecurityConfig {
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(PUBLIC).permitAll()
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép tất cả các request OPTIONS
-						.requestMatchers(ADMIN).hasAuthority("ADMIN") // If UserDetails.getAuthorities return [ADMIN,...]
-						.requestMatchers(USER).hasAuthority("USER") // If UserDetails.getAuthorities return [USER,...]
-						.requestMatchers(STAFF).hasAuthority("STAFF") // If UserDetails.getAuthorities return [STAFF,...]
+						.requestMatchers(ADMIN).hasAuthority("ADMIN") // If UserDetails.getAuthorities return [ADMIN, ...]
+						.requestMatchers(USER).hasAuthority("USER")
+						.requestMatchers(STAFF).hasAuthority("STAFF")
 						.anyRequest().authenticated())
 				.exceptionHandling(exception -> exception
 						.accessDeniedHandler(customAccessDeniedHandler)
 						.authenticationEntryPoint(authEntryPointJwt)) // Xử lý khi bị từ chối truy cập
-				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+				.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Không sử dụng session
 				.authenticationProvider(authenticationProvider())
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
 				.build();

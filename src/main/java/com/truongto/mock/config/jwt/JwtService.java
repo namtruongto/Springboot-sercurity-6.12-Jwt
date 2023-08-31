@@ -13,10 +13,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class JwtService {
     
     @Value("${jwt.secret.key}")
@@ -55,26 +53,20 @@ public class JwtService {
 			Jwts.parserBuilder().setSigningKey(getKey()).build().parseClaimsJws(token);
 			return true;
 		}
-		catch(SignatureException e){
-			log.error("Invalid JWT signature: {}", e.getMessage());
-			e.printStackTrace();
-			
+		catch (SignatureException e) {
+			System.out.println("Incorrect signature: \n" + e.getMessage() + "");
 		}
 		catch (SecurityException | MalformedJwtException e) {
-			log.error("Invalid JWT token: {}", e.getMessage());
-			e.printStackTrace();
+			System.out.println("Invalid JWT signature. \n" + e.getMessage() + "");
 		}
 		catch (ExpiredJwtException e) {
-			log.error("JWT token is expired: {}", e.getMessage());
-			e.printStackTrace();
+			System.out.println("Expired JWT token. \n" + e.getMessage() + "");
 		}
 		catch (UnsupportedJwtException e) {
-			log.error("JWT token is unsupported: {}", e.getMessage());
-			e.printStackTrace();
+			System.out.println("Unsupported JWT token. \n" + e.getMessage() + "");
 		}
 		catch (IllegalArgumentException e) {
-			log.error("JWT claims string is empty: {}", e.getMessage());
-			e.printStackTrace();
+			System.out.println("JWT claims string is empty. \n" + e.getMessage() + "");
 		}
 		return false;
 	}

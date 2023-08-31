@@ -19,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
@@ -32,6 +33,7 @@ public class Author {
     private Long id;
 
     @Column(name = "name", length = 100, nullable = false)
+    @NotBlank(message = "Name is required")
     private String name;
 
     @Column(name = "biography", length = 1000, nullable = true)

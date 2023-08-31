@@ -1,6 +1,5 @@
 package com.truongto.mock.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -27,17 +26,15 @@ public class PersonController {
 
     @GetMapping
     ResponseEntity<BaseResponse> findAll() {
-        BaseResponse response = new BaseResponse(HttpStatus.OK, HttpStatus.OK.getReasonPhrase(), personService.findAll());
+        BaseResponse response = new BaseResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), personService.findAll());
         return ResponseEntity.ok(response);
-
     };
 
     @GetMapping("/{id}")
     ResponseEntity<BaseResponse> getByID(@PathVariable("id") Long id) {
         Person person = personService.findById(id);
-        BaseResponse response = new BaseResponse(HttpStatus.OK, HttpStatus.OK.getReasonPhrase(), person.toDto());
+        BaseResponse response = new BaseResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), person.toDto());
         return ResponseEntity.ok(response);
-
     };
 
     @PutMapping("/{id}/roles")
@@ -45,7 +42,7 @@ public class PersonController {
         Person person = personService.findById(id);
         person.setRolesInteger(payload.getRoles());
         person = personService.save(person);
-        BaseResponse response = new BaseResponse(HttpStatus.OK, HttpStatus.OK.getReasonPhrase(), person.toDto());
+        BaseResponse response = new BaseResponse(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), person.toDto());
         return ResponseEntity.ok(response);
     };
 }
