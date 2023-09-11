@@ -41,7 +41,7 @@ public class SecurityConfig {
 	};
 
 	private static final String[] ADMIN = new String[] {
-			"/person/**"
+			"/user/**"
 	};
 
 	private static final String[] USER = new String[] {
