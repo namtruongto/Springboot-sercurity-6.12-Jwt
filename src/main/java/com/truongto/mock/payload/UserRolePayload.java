@@ -2,14 +2,14 @@ package com.truongto.mock.payload;
 
 import java.util.Set;
 
-public class PersonRolePayload {
+public class UserRolePayload {
 
     private Set<Integer> roles;
 
-    public PersonRolePayload() {
+    public UserRolePayload() {
     }
 
-    public PersonRolePayload(Set<Integer> roles) {
+    public UserRolePayload(Set<Integer> roles) {
         this.roles = roles;
     }
 

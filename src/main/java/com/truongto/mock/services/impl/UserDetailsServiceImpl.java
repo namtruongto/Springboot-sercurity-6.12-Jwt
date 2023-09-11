@@ -6,18 +6,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.truongto.mock.services.PersonService;
+import com.truongto.mock.services.UserService;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
     @Autowired
-    private PersonService personService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            return personService.findByUserName(username);
+            return userService.findByUserName(username);
         } catch (Exception e) {
             throw new UsernameNotFoundException("Không tim thấy người dùng với username: " + username);
         }

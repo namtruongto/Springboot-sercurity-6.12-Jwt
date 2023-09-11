@@ -3,7 +3,7 @@ package com.truongto.mock.dtos;
 import java.util.Date;
 import java.util.Set;
 
-public class PersonDto {
+public class UserDto {
     private Long id;
     private String name;
     private String gender;
@@ -12,10 +12,10 @@ public class PersonDto {
     private String email;
     private Set<String> roles;
 
-    public PersonDto() {
+    public UserDto() {
     }
 
-    public PersonDto(Long id, String name, String gender, Date birthday, String address, String email,
+    public UserDto(Long id, String name, String gender, Date birthday, String address, String email,
             Set<String> roles) {
         this.id = id;
         this.name = name;

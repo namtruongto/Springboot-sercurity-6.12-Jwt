@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.truongto.mock.config.jwt.JwtService;
 import com.truongto.mock.dtos.AuthResponseDTO;
-import com.truongto.mock.entities.Person;
+import com.truongto.mock.entities.User;
 import com.truongto.mock.payload.AuthRequestDTO;
 import com.truongto.mock.payload.RegisterRequestDTO;
-import com.truongto.mock.services.PersonService;
+import com.truongto.mock.services.UserService;
 import com.truongto.mock.thfw.enums.Role;
 import com.truongto.mock.thfw.enums.Enums.Gender;
 
@@ -19,7 +19,7 @@ import com.truongto.mock.thfw.enums.Enums.Gender;
 public class AuthService {
     
     @Autowired
-	private PersonService personService;
+	private UserService userService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -32,13 +32,13 @@ public class AuthService {
 
     public AuthResponseDTO register(RegisterRequestDTO dto) {
 		
-		Person person = new Person();
+		User person = new User();
 		person.setUsername(dto.getUsername());
 		person.setEmail(dto.getEmail());
 		person.setPassword(passwordEncoder.encode(dto.getPassword()));
 		person.setGender(Gender.MALE);
 		person.addRole(Role.ADMIN);
-		person = personService.create(person);
+		person = userService.create(person);
 		return new AuthResponseDTO(jwtService.generateToken(person.getUsername()), person.getUsername(), person.getEmail(), person.getRolesString());
 	}
 	
@@ -47,7 +47,7 @@ public class AuthService {
 				new UsernamePasswordAuthenticationToken(
 						dto.getUsername(), 
 						dto.getPassword()));
-		final Person person = personService.findByUserName(dto.getUsername());
+		final User person = userService.findByUserName(dto.getUsername());
 		String token = jwtService.generateToken(person.getUsername());
 		return new AuthResponseDTO(token, person.getUsername(),person.getEmail(), person.getRolesString());
 	}

@@ -5,24 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.truongto.mock.entities.Person;
-import com.truongto.mock.repositories.PersonRepository;
-import com.truongto.mock.services.PersonService;
+import com.truongto.mock.entities.User;
+import com.truongto.mock.repositories.UserRepository;
+import com.truongto.mock.services.UserService;
 import com.truongto.mock.thfw.exceptions.NotFoundException;
 
 @Service
-public class PersonServiceImpl implements PersonService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
-    PersonRepository personRepository;
+    UserRepository personRepository;
 
     @Override
-    public Person save(Person person) {
+    public User save(User person) {
         return this.personRepository.save(person);
     }
 
     @Override
-    public List<Person> findAll() {
+    public List<User> findAll() {
         return this.personRepository.findAll();
     }
 
@@ -32,19 +32,19 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findById(Long id) {
+    public User findById(Long id) {
         return personRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Không tìm thấy người dùng với id: " + id));
     }
 
     @Override
-    public Person findByUserName(String userName) {
+    public User findByUserName(String userName) {
         return personRepository.findByUsername(userName).orElseThrow(
                 () -> new NotFoundException("Không tìm thấy người dùng với username: " + userName));
     }
 
     @Override
-    public Person create(Person person) {
+    public User create(User person) {
         return personRepository.save(person);
     }
 

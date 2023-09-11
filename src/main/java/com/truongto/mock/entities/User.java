@@ -12,7 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.truongto.mock.dtos.PersonDto;
+import com.truongto.mock.dtos.UserDto;
 import com.truongto.mock.thfw.enums.Role;
 import com.truongto.mock.thfw.enums.Enums.Gender;
 
@@ -27,8 +27,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 @Entity
-@Table(name = "person")
-public class Person implements UserDetails {
+@Table(name = "user")
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,11 +61,11 @@ public class Person implements UserDetails {
 
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "person_role")
+    @CollectionTable(name = "user_role")
     private Set<Integer> roles = new HashSet<>(Arrays.asList(Role.USER.getId()));
 
-    public PersonDto toDto() {
-        return new PersonDto(
+    public UserDto toDto() {
+        return new UserDto(
                 this.id,
                 this.name,
                 this.gender != null ? this.gender.name() : null,
@@ -79,10 +79,10 @@ public class Person implements UserDetails {
         this.roles.add(role.getId());
     }
 
-    public Person() {
+    public User() {
     }
 
-    public Person(String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
         this.password = password;
         this.email = email;

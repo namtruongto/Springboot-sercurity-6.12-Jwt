@@ -1,6 +1,6 @@
 package com.truongto.mock.payload;
 
-public class PersonPayload {
+public class UserPayload {
     String name;
     String address;
     String email;
@@ -29,10 +29,10 @@ public class PersonPayload {
         this.email = email;
     }
 
-    public PersonPayload() {
+    public UserPayload() {
     }
 
-    public PersonPayload(String name, String address, String email) {
+    public UserPayload(String name, String address, String email) {
         this.name = name;
         this.address = address;
         this.email = email;
