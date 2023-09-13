@@ -2,6 +2,7 @@ package com.truongto.mock.config;
 
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +33,7 @@ import com.truongto.mock.thfw.exceptions.CustomAccessDeniedHandler;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true) // Bật hỗ trợ cho @PreAuthorize và @PostAuthorize
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
+@RequiredArgsConstructor
 public class SecurityConfig {
 
 	private static final String[] PUBLIC = new String[] {
@@ -52,22 +55,18 @@ public class SecurityConfig {
 			"/author/**"
 	};
 
-	@Autowired
-	private UserDetailsService userDetailsService;
+	private final UserDetailsService userDetailsService;
 
-	@Autowired
-	private JwtAuthFilter jwtAuthFilter;
+	private final JwtAuthFilter jwtAuthFilter;
 
-	@Autowired
-	private CustomAccessDeniedHandler customAccessDeniedHandler;
+	private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
-	@Autowired
-	private AuthEntryPointJwt authEntryPointJwt;
+	private final AuthEntryPointJwt authEntryPointJwt;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 		return httpSecurity
-				.csrf(csrf -> csrf.disable()) // Bỏ qua CSRF
+				.csrf(AbstractHttpConfigurer::disable) // Bỏ qua CSRF
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(PUBLIC).permitAll()
 						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Cho phép tất cả các request OPTIONS
