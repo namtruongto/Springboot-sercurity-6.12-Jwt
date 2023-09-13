@@ -2,6 +2,7 @@ package com.truongto.mock.services.impl;
 
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,10 @@ import com.truongto.mock.services.UserService;
 import com.truongto.mock.thfw.exceptions.NotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    UserRepository personRepository;
+    private final UserRepository personRepository;
 
     @Override
     public User save(User person) {

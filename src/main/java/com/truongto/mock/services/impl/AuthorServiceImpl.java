@@ -2,6 +2,7 @@ package com.truongto.mock.services.impl;
 
 import java.util.Optional;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,10 @@ import com.truongto.mock.services.AuthorService;
 import com.truongto.mock.thfw.exceptions.NotFoundException;
 
 @Service
+@RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
-    @Autowired
-    private AuthorRepository authorRepository;
+    private final AuthorRepository authorRepository;
 
     @Override
     public Author getAuthorById(Long id) {

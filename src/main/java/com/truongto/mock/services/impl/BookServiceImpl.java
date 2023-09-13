@@ -3,6 +3,7 @@ package com.truongto.mock.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,10 +20,10 @@ import com.truongto.mock.thfw.exceptions.NotFoundException;
 import jakarta.persistence.criteria.Predicate;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
 
-    @Autowired
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Override
     public Page<Book> pagingBook(Pageable pageable, BookPayload payload) {
