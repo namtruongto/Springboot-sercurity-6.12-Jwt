@@ -3,9 +3,7 @@ package com.truongto.mock.services.impl;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.truongto.mock.entities.User;
 import com.truongto.mock.repositories.UserRepository;
 import com.truongto.mock.services.UserService;

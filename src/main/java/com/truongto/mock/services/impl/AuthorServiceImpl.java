@@ -3,7 +3,6 @@ package com.truongto.mock.services.impl;
 import java.util.Optional;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.truongto.mock.entities.Author;
@@ -20,9 +19,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author getAuthorById(Long id) {
         return this.authorRepository.findById(id).map(author -> {
-            author.getBooks().forEach(book -> {
-                book.setAuthor(null);
-            });
+            author.getBooks().forEach(book -> book.setAuthor(null));
             return author;
         }).orElseThrow(() -> new NotFoundException("Không tìm thấy tác giả với id: " + id));
     }
@@ -30,9 +27,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public Author createAuthor(Author author) {
         Author authorCreated = this.authorRepository.save(author);
-        authorCreated.getBooks().forEach(book -> {
-            book.setAuthor(null);
-        });
+        authorCreated.getBooks().forEach(book -> book.setAuthor(null));
         return authorCreated;
     }
 
@@ -57,16 +52,12 @@ public class AuthorServiceImpl implements AuthorService {
                 authorUpdate.setNationality(author.getNationality());
             }
             Author authorUpdated = this.authorRepository.save(authorUpdate);
-            authorUpdated.getBooks().forEach(book -> {
-                book.setAuthor(null);
-            });
+            authorUpdated.getBooks().forEach(book -> book.setAuthor(null));
             return authorUpdated;
 
         } else {
             throw new NotFoundException("Không tìm thấy tác giả với id: " + id);
         }
-
-        
     }
 
     @Override

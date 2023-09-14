@@ -1,6 +1,6 @@
 package com.truongto.mock.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +8,11 @@ import com.truongto.mock.entities.User;
 import com.truongto.mock.thfw.enums.Role;
 
 @Service
+@RequiredArgsConstructor
 public class DatabaseService {
-    @Autowired
-	private UserService userService;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final UserService userService;
+
+	private final PasswordEncoder passwordEncoder;
 	
 	public void initializeDatabase() {
 
