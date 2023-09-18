@@ -49,7 +49,7 @@ Copy application.properties
 mvnw spring-boot:run 
 
 
-Browse API docs at http://localhost:8080/api/swagger-ui ↗
+Browse API docs at http://localhost:8080/api/swagger-ui/index.html ↗
 
 Contact 📧
 
